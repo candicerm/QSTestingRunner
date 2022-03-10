@@ -1,0 +1,61 @@
+version: "3"
+services:
+  hub:
+    image: selenium/hub:4.1.2
+  chrome:
+    image: selenium/node-chrome:4.1.2
+    shm_size: '2g'        
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  firefox:
+    image: selenium/node-firefox:4.1.2
+    shm_size: '2g'   
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  #oms-chrome:
+  # image: candicerm/qsuitest:1.0
+  #  depends_on:
+  #    - chrome
+  #    - firefox
+  #  environment:
+  #    - SCHOOL_CODE=masterscheduler
+  #    - BROWSER=chrome_r
+  #    - DAILY_TEST=false
+  #    - HUB_HOST=hub
+  #    - MODULE=src/test/resources/uitest/oms.xml
+  #  volumes:
+  #    - ./oms-chrome-result:/usr/share/qsuitest/test-output
+  single-firefox:
+    image: candicerm/qsuitest:1.0
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - SCHOOL_CODE=seleniumtestschool
+      - BROWSER=firefox_r
+      - DAILY_TEST=false
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/test-single.xml
+    volumes:
+      - ./single-firefox-result:/usr/share/qsuitest/test-output
+  sis-chrome:
+    image: candicerm/qsuitest:1.0
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - SCHOOL_CODE=testing20220304
+      - BROWSER=chrome_r
+      - DAILY_TEST=false
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/sis.xml
+    volumes:
+      - ./sis-chrome-result:/usr/share/qsuitest/test-output
