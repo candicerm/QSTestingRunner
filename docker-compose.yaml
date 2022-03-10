@@ -54,9 +54,9 @@ services:
       - chrome
       - firefox
     environment:
-      - SCHOOL_CODE=testing20220308
+    #  - SCHOOL_CODE=testing20220308
       - BROWSER=chrome_r
-      - DAILY_TEST=false
+      - DAILY_TEST=true
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/sis.xml
     volumes:
