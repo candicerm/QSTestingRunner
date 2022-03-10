@@ -47,7 +47,7 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/test-single.xml
     volumes:
-      - ./single-firefox-result:/usr/share/qsuitest/test-output
+      - ./output/single-firefox-result:/usr/share/qsuitest/test-output
   sis-chrome:
     image: candicerm/qsuitest
     depends_on:
@@ -60,4 +60,4 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/sis.xml
     volumes:
-      - ./sis-chrome-result:/usr/share/qsuitest/test-output
+      - ./output/sis-chrome-result:/usr/share/qsuitest/test-output
