@@ -21,7 +21,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
   #oms-chrome:
-  # image: candicerm/qsuitest:1.0
+  # image: candicerm/qsuitest
   #  depends_on:
   #    - chrome
   #    - firefox
@@ -34,7 +34,7 @@ services:
   #  volumes:
   #    - ./oms-chrome-result:/usr/share/qsuitest/test-output
   single-firefox:
-    image: candicerm/qsuitest:1.0
+    image: candicerm/qsuitest
     depends_on:
       - chrome
       - firefox
@@ -47,12 +47,12 @@ services:
     volumes:
       - ./single-firefox-result:/usr/share/qsuitest/test-output
   sis-chrome:
-    image: candicerm/qsuitest:1.0
+    image: candicerm/qsuitest
     depends_on:
       - chrome
       - firefox
     environment:
-      - SCHOOL_CODE=testing20220304
+      - SCHOOL_CODE=testing20220308
       - BROWSER=chrome_r
       - DAILY_TEST=false
       - HUB_HOST=hub
