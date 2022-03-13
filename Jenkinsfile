@@ -17,7 +17,7 @@ pipeline{
 		stage("Run Test"){
 			steps{
 				//sh
-				bat "docker-compose up single-firefox sis-chrome"
+				bat "docker-compose up single-firefox sis-chrome & echo 'CM: DOCKERERROR: ' %ERRORLEVEL%"
 			}
 		}
 	}
