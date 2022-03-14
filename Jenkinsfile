@@ -34,7 +34,7 @@ pipeline {
                     subject: 'Build FAILURE in Jenkins: $PROJECT_NAME - $BUILD_NUMBER'
 				}
 				else {
-					emailext body: '<attach test report>', 
+					emailext body: 'Attach test result report.', 
                     to: "${EMAIL_TO}", 
                     subject: 'Build SUCCESS in Jenkins: $PROJECT_NAME - $BUILD_NUMBER'
 				}
