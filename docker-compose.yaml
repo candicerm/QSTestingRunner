@@ -54,7 +54,6 @@ services:
       - chrome
       - firefox
     environment:
-    #  - SCHOOL_CODE=testing20220308
       - BROWSER=chrome_r
       - DAILY_TEST=true
       - HUB_HOST=hub
