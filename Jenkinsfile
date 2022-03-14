@@ -34,7 +34,7 @@ pipeline {
                     subject: 'Build FAILURE in Jenkins: $PROJECT_NAME - $BUILD_NUMBER'
 				}
 				else {
-					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
+					emailext body: '<attach test report>', 
                     to: "${EMAIL_TO}", 
                     subject: 'Build SUCCESS in Jenkins: $PROJECT_NAME - $BUILD_NUMBER'
 				}
