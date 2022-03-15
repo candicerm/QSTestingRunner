@@ -11,13 +11,13 @@ pipeline {
 		stage("Start Grid"){
 			steps{
 				//sh
-				bat "docker-compose up -d hub chrome firefox --scale chrome=2"
+				bat "docker-compose up -d hub chrome firefox"
 			}
 		}
 		stage("Run Test"){
 			steps{
 				//sh
-				bat "docker-compose up single-firefox sis-chrome"
+				bat "docker-compose up --scale chrome=2 single-firefox sis-chrome"
 				bat "checkerrors.bat"
 			}
 		}
