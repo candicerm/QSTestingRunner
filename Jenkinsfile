@@ -17,7 +17,7 @@ pipeline {
 		stage("Run Test"){
 			steps{
 				//sh
-				bat "docker-compose up --scale chrome=2 single-firefox sis-chrome"
+				bat "docker-compose up --scale chrome=2 single-firefox"
 				bat "checkerrors.bat"
 			}
 		}
