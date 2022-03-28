@@ -13,6 +13,7 @@ services:
       - SE_EVENT_BUS_HOST=hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=5
   firefox:
     image: selenium/node-firefox:4.1.2
     shm_size: '2g'   
@@ -22,41 +23,62 @@ services:
       - SE_EVENT_BUS_HOST=hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-  #oms-chrome:
-  # image: candicerm/qsuitest
-  #  depends_on:
-  #    - chrome
-  #    - firefox
-  #  environment:
-  #    - SCHOOL_CODE=masterscheduler
-  #    - BROWSER=chrome_r
-  #    - DAILY_TEST=false
-  #    - HUB_HOST=hub
-  #    - MODULE=src/test/resources/uitest/oms.xml
-  #  volumes:
-  #    - ./oms-chrome-result:/usr/share/qsuitest/test-output
-  single-firefox:
+      - SE_NODE_MAX_SESSIONS=5
+  login-quick-chrome:
     image: candicerm/qsuitest
     depends_on:
       - chrome
-      - firefox
     environment:
       - SCHOOL_CODE=seleniumtestschool
-      - BROWSER=firefox_r
+      - BROWSER=chrome_r
+      - DAILY_TEST=false
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/login-quick.xml
+    volumes:
+      - ./login-quick-chrome-result:/usr/share/qsuitest/test-output
+  single-chrome:
+    image: candicerm/qsuitest
+    depends_on:
+      - chrome
+    environment:
+      - SCHOOL_CODE=seleniumtestschool
+      - BROWSER=chrome_r
       - DAILY_TEST=false
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/test-single.xml
     volumes:
-      - ./output/single-firefox-result:/usr/share/qsuitest/test-output
-  #sis-chrome:
-  #  image: candicerm/qsuitest
-  #  depends_on:
-  #    - chrome
-  #    - firefox
-  #  environment:
-  #    - BROWSER=chrome_r
-  #    - DAILY_TEST=true
-  #    - HUB_HOST=hub
-  #    - MODULE=src/test/resources/uitest/sis.xml
-  #  volumes:
-  #    - ./output/sis-chrome-result:/usr/share/qsuitest/test-output
+      - ./single-firefox-result:/usr/share/qsuitest/test-output
+  sis-chrome:
+    image: candicerm/qsuitest
+    depends_on:
+      - chrome
+    environment:
+      - BROWSER=chrome_r
+      - DAILY_TEST=true
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/sis.xml
+    volumes:
+      - ./sis-chrome-result:/usr/share/qsuitest/test-output
+  oms-chrome:
+    image: candicerm/qsuitest
+    depends_on:
+      - chrome
+    environment:
+      - SCHOOL_CODE=masterscheduler
+      - BROWSER=chrome_r
+      - DAILY_TEST=false
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/oms.xml
+    volumes:
+      - ./oms-chrome-result:/usr/share/qsuitest/test-output
+  smoke-chrome:
+    image: candicerm/qsuitest
+    depends_on:
+      - chrome
+    environment:
+      - BROWSER=chrome_r
+      - DAILY_TEST=true
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/test-smoke.xml
+    volumes:
+      - ./smoke-chrome-result:/usr/share/qsuitest/test-output
