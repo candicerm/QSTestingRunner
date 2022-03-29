@@ -27,18 +27,18 @@ pipeline {
     }
 	post{
 		always{
-			/*script {
+			script {
 				if (currentBuild.currentResult == 'FAILURE') {
 					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
                     to: "${EMAIL_TO}", 
-                    subject: 'Build FAILURE in Jenkins: $PROJECT_NAME - $BUILD_NUMBER'
+                    subject: 'Build FAILURE in Jenkins: H4_R_20220329_SSC'
 				}
 				else {
-					emailext body: 'Attach test result report.', 
+					emailext body: 'Attach test result report here.', 
                     to: "${EMAIL_TO}", 
-                    subject: 'Build SUCCESS in Jenkins: $PROJECT_NAME - $BUILD_NUMBER'
+                    subject: 'Build SUCCESS in Jenkins: H4_R_20220329_SSC'
 				}
-			}*/
+			}
 			archiveArtifacts artifacts: 'output/**'
 			bat "docker-compose down"
 			//sh "sudo rm -rf output/"
