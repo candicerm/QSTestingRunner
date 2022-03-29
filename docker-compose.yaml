@@ -35,7 +35,7 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/login-quick.xml
     volumes:
-      - ./login-quick-chrome-result:/usr/share/qsuitest/test-output
+      - ./output/login-quick-chrome-result:/usr/share/qsuitest/test-output
   single-chrome:
     image: candicerm/qsuitest
     depends_on:
@@ -47,7 +47,7 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/test-single.xml
     volumes:
-      - ./single-firefox-result:/usr/share/qsuitest/test-output
+      - ./output/single-firefox-result:/usr/share/qsuitest/test-output
   sis-chrome:
     image: candicerm/qsuitest
     depends_on:
@@ -58,7 +58,7 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/sis.xml
     volumes:
-      - ./sis-chrome-result:/usr/share/qsuitest/test-output
+      - ./output/sis-chrome-result:/usr/share/qsuitest/test-output
   oms-chrome:
     image: candicerm/qsuitest
     depends_on:
@@ -70,7 +70,7 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/oms.xml
     volumes:
-      - ./oms-chrome-result:/usr/share/qsuitest/test-output
+      - ./output/oms-chrome-result:/usr/share/qsuitest/test-output
   smoke-chrome:
     image: candicerm/qsuitest
     depends_on:
@@ -81,4 +81,4 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/test-smoke.xml
     volumes:
-      - ./smoke-chrome-result:/usr/share/qsuitest/test-output
+      - ./output/smoke-chrome-result:/usr/share/qsuitest/test-output
