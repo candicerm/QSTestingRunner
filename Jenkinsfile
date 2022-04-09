@@ -31,12 +31,12 @@ pipeline {
 				if (currentBuild.currentResult == 'FAILURE') {
 					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
                     to: "${EMAIL_TO}", 
-                    subject: 'QSTesting Build #$BUILD_NUMBER FAILURE in Jenkins:  H4_R_20220329_SSC'
+                    subject: 'QSTesting Build #$BUILD_NUMBER FAILURE in Jenkins:  H5_20220409_SSC'
 				}
 				else {
 					emailext body: 'Attach test result report here.', 
                     to: "${EMAIL_TO}", 
-                    subject: 'QSTesting Build #$BUILD_NUMBER SUCCESS in Jenkins: H4_R_20220329_SSC'
+                    subject: 'QSTesting Build #$BUILD_NUMBER SUCCESS in Jenkins: H5_20220409_SSC'
 				}
 			}
 			archiveArtifacts artifacts: 'output/**'
