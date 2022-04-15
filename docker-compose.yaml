@@ -77,7 +77,6 @@ services:
     depends_on:
       - chrome
     environment:
-      - TZ=Asia/Kuala_Lumpur
       - BROWSER=chrome_r
       - DAILY_TEST=true
       - HUB_HOST=hub
