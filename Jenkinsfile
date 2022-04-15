@@ -24,20 +24,23 @@ pipeline {
 	}
 	environment {
         EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
-		TIMESTAMP = '${GROOVY,script = "String.format('%tF %<tH:%<tM', java.time.LocalDateTime.now())"}'
     }
 	post{
 		always{
 			script {
+				bat "date '+%Y%m%d%H%M'
+				MYD=$(date '+%Y%m%d%H%M')
+				echo $MYD"
+			
 				if (currentBuild.currentResult == 'FAILURE') {
 					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
                     to: '${EMAIL_TO}', 
-                    subject: 'QSTesting Build #$BUILD_NUMBER FAILURE in Jenkins: SSC_$TIMESTAMP'
+                    subject: 'QSTesting Build #$BUILD_NUMBER FAILURE in Jenkins: SSC_$MYD'
 				}
 				else {
 					emailext body: 'Attach test result report here.', 
                     to: '${EMAIL_TO}', 
-                    subject: 'QSTesting Build #$BUILD_NUMBER SUCCESS in Jenkins: SSC_$TIMESTAMP'
+                    subject: 'QSTesting Build #$BUILD_NUMBER SUCCESS in Jenkins: SSC_$MYD'
 				}
 			}
 			archiveArtifacts artifacts: 'output/**'
