@@ -24,7 +24,7 @@ pipeline {
 	}
 	environment {
         EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
-		TIMESTAMP = 'echo ${'%Y%m%d_%H%M%S'}'
+		TIMESTAMP = '${GROOVY,script = "String.format('%tF %<tH:%<tM', java.time.LocalDateTime.now())"}'
     }
 	post{
 		always{
