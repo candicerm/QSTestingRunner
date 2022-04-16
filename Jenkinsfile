@@ -24,22 +24,22 @@ pipeline {
 	}
 	environment {
         EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
-		JTSTAMP = ''
     }
 	post{
 		always{
 			script {
-				bat "timestamp.bat ${env.JTSTAMP}"
+				bat "timestamp.bat"
+				env.TIMESTAMP = env["JTSTAMP"]
 				
 				if (currentBuild.currentResult == 'FAILURE') {
 					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
                     to: "${EMAIL_TO}", 
-                    subject: "${JTSTAMP}"
+                    subject: "${TIMESTAMP}"
 				}
 				else {
 					emailext body: 'Attach test result report here.', 
                     to: "${EMAIL_TO}", 
-                    subject: "${JTSTAMP}"
+                    subject: "${TIMESTAMP}"
 				}
 			}
 			archiveArtifacts artifacts: 'output/**'
