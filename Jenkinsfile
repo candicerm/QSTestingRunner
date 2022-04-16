@@ -29,7 +29,7 @@ pipeline {
 		always{
 			script {
 				bat "timestamp.bat"
-				env.TIMESTAMP = ${env.JTSTAMP}
+				env.TIMESTAMP = env["JTSTAMP"]
 				
 				if (currentBuild.currentResult == 'FAILURE') {
 					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
