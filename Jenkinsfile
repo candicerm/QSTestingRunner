@@ -24,6 +24,7 @@ pipeline {
 	}
 	environment {
         EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
+		JTSTAMP = ''
     }
 	post{
 		always{
