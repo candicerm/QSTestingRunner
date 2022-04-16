@@ -28,18 +28,17 @@ pipeline {
 	post{
 		always{
 			script {
-				bat "timestamp.bat"
-				env.TIMESTAMP = env["JTSTAMP"]
+				bat "timestamp.bat ${env.JTSTAMP}"
 				
 				if (currentBuild.currentResult == 'FAILURE') {
 					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
                     to: "${EMAIL_TO}", 
-                    subject: "${TIMESTAMP}"
+                    subject: "${JTSTAMP}"
 				}
 				else {
 					emailext body: 'Attach test result report here.', 
                     to: "${EMAIL_TO}", 
-                    subject: "${TIMESTAMP}"
+                    subject: "${JTSTAMP}"
 				}
 			}
 			archiveArtifacts artifacts: 'output/**'
