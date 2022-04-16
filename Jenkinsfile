@@ -24,7 +24,8 @@ pipeline {
 	}
 	environment {
         EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
-		TIMESTAMP = bat(returnStdout: true, script: 'timestamp.bat').trim()
+		TIMESTAMP = bat(returnStdout: true, script: '@echo off 
+		timestamp.bat').trim()
     }
 	post{
 		always{
