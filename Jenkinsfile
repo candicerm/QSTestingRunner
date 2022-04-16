@@ -36,10 +36,20 @@ pipeline {
                     to: "${EMAIL_TO}", 
                     subject: "QSTesting Build #${BUILD_NUMBER} FAILURE in Jenkins: SSC_${TIMESTAMP}"
 				}
-				else {
+				/*else if (currentBuild.currentResult == 'ABORTED') {
+					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
+                    to: "${EMAIL_TO}", 
+                    subject: "QSTesting Build #${BUILD_NUMBER} ABORTED in Jenkins: SSC_${TIMESTAMP}"
+				}
+				else if (currentBuild.currentResult == 'SUCCESS'){
 					emailext body: 'Attach test result report here.', 
                     to: "${EMAIL_TO}", 
-                    subject: "QSTesting Build #${BUILD_NUMBER} FAILURE in Jenkins: SSC_${TIMESTAMP}"
+                    subject: "QSTesting Build #${BUILD_NUMBER} SUCCESS in Jenkins: SSC_${TIMESTAMP}"
+				}*/
+				else {
+					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
+                    to: "${EMAIL_TO}", 
+                    subject: "QSTesting Build #${BUILD_NUMBER} currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				}
 			}
 			archiveArtifacts artifacts: 'output/**'
