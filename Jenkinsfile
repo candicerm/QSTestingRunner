@@ -24,13 +24,11 @@ pipeline {
 	}
 	environment {
         EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
+		TIMESTAMP = bat(returnStdout: true, script: 'timestamp.bat').trim()
     }
 	post{
 		always{
-			script {
-				bat "timestamp.bat"
-				env.TIMESTAMP = env["JTSTAMP"]
-				
+			script {				
 				if (currentBuild.currentResult == 'FAILURE') {
 					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
                     to: "${EMAIL_TO}", 
