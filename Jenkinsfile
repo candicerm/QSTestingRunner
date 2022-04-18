@@ -31,8 +31,6 @@ pipeline {
     }
 	post{
 		always{
-			archiveArtifacts artifacts: 'output/**'
-			
 			script {
 				if (currentBuild.currentResult != 'ABORTED') {
 					// Print Report to PDF
@@ -40,10 +38,7 @@ pipeline {
 					dir ("../../") {
 						bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
 					}
-					// Go back to current location
-					dir ("workspace/QSUITEST_RUNNER") {
-						bat "docker compose run printreport-output"
-					}
+					bat "docker compose run printreport-output"
 					// Send Email
 					emailext attachmentsPattern: '../../jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive/output/login-quick-chrome-result/html/out.pdf', 
 					body: 'Please see attached Test Results Report', 
@@ -55,7 +50,8 @@ pipeline {
 					to: "${EMAIL_TO}", 
 					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				}				
-			}			
+			}
+			archiveArtifacts artifacts: 'output/**'			
 			bat "docker-compose down"
 			//sh "sudo rm -rf output/"
 			bat "rmdir /s/q output"

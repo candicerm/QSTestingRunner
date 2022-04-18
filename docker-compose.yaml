@@ -90,4 +90,5 @@ services:
     tty: true        # docker run -t
     volumes:
       - ./:/output/print
-      - ../../jobs/QSUITEST_RUNNER/builds/74/archive/output:/output
+#      - ../../jobs/QSUITEST_RUNNER/builds/75/archive/output:/output
+      - ./output:/output
