@@ -46,7 +46,7 @@ pipeline {
 					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				} else {
 					// Send Email without PDF Report
-					emailext body: 'Build Aborted.', 
+					emailext body: 'Build aborted.', 
 					to: "${EMAIL_TO}", 
 					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				}
