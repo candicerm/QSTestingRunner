@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 services:
   hub:
     image: selenium/hub:4.1.2
@@ -83,3 +83,11 @@ services:
       - MODULE=src/test/resources/uitest/test-smoke.xml
     volumes:
       - ./output/smoke-chrome-result:/usr/share/qsuitest/test-output
+  printreport-output:
+    image: candicerm/printreport
+    container_name: printreport
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ./:/output/print
+      - ../../jobs/QSUITEST_RUNNER/builds/2/archive/output:/output

@@ -21,33 +21,27 @@ pipeline {
 				bat "checkerrors.bat"
 			}
 		}
+		stage("Print Report to PDF"){
+			steps{				
+				//sh
+				bat "cd ../../"
+				bat "docker build -f workspace\${JOB_NAME}\Dockerfile --build-arg JOB_NAME=${JOB_NAME} --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
+				bat "cd workspace\${JOB_NAME}"
+				bat "docker compose run printreport-output"
+		}
 	}
 	environment {
-        EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
+        //EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
+		EMAIL_TO = 'candice@quickschools.com'
 		TIMESTAMP = bat(script: '''@echo off 
 						timestamp.bat
 						''', returnStdout: true).trim()
     }
 	post{
 		always{
-			script {				
-				if (currentBuild.currentResult == 'FAILURE') {
-					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
-                    to: "${EMAIL_TO}", 
-                    subject: "QSTesting Build #${BUILD_NUMBER} FAILURE in Jenkins: SSC_${TIMESTAMP}"
-				}
-				else if (currentBuild.currentResult == 'ABORTED') {
-					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
-                    to: "${EMAIL_TO}", 
-                    subject: "QSTesting Build #${BUILD_NUMBER} ABORTED in Jenkins: SSC_${TIMESTAMP}"
-				}
-				else if (currentBuild.currentResult == 'SUCCESS'){
-					emailext body: 'Attach test result report here.', 
-                    to: "${EMAIL_TO}", 
-                    subject: "QSTesting Build #${BUILD_NUMBER} SUCCESS in Jenkins: SSC_${TIMESTAMP}"
-				}
-				else {
-					emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
+			script {
+					emailext attachmentsPattern: 'pdf path', 
+					body: Please see attached Test Results Report, 
                     to: "${EMAIL_TO}", 
                     subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				}
