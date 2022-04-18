@@ -11,7 +11,7 @@ ARG BUILD_NUMBER
 WORKDIR /output/print
 
 # Add html files
-ADD ././jobs/QSUITEST_RUNNER/builds/${BUILD_NUMBER}/archive/output 	/output
+ADD output 	/output
 
 # Add printreport
 ADD workspace/QSUITEST_RUNNER/printreport 								/output/print
