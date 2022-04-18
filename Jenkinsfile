@@ -25,8 +25,8 @@ pipeline {
 			steps{				
 				//sh
 				bat "cd ../../"
-				bat "docker build -f workspace\QSUITEST_RUNNER\Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
-				bat "cd workspace\${JOB_NAME}"
+				bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
+				bat "cd workspace/QSUITEST_RUNNER"
 				bat "docker compose run printreport-output"
 		}
 	}
