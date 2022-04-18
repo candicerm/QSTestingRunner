@@ -10,6 +10,6 @@ WORKDIR /print
 
 # Add files
 ADD workspace/QSUITEST_RUNNER 			/print
-RUN dos2unix                            /print/printreport
+RUN dos2unix                            /print/printreport.sh
 
 ENTRYPOINT sh ./printreport
