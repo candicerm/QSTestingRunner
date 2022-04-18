@@ -28,6 +28,7 @@ pipeline {
 				bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
 				bat "cd workspace/QSUITEST_RUNNER"
 				bat "docker compose run printreport-output"
+			}
 		}
 	}
 	environment {
@@ -41,7 +42,7 @@ pipeline {
 		always{
 			script {
 					emailext attachmentsPattern: '../../jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive/output/smoke-chrome-result/html/out.pdf', 
-					body: 'Please see attached Test Results Report', 
+					body: Please see attached Test Results Report', 
                     to: "${EMAIL_TO}", 
                     subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				}
