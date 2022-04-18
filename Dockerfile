@@ -11,6 +11,4 @@ WORKDIR /print
 # Add files
 ADD workspace/QSUITEST_RUNNER 			/print
 
-RUN dos2unix printreport
-
-ENTRYPOINT sh ./printreport
+ENTRYPOINT sh dos2unix printreport && ./printreport
