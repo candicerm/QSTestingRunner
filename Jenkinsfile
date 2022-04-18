@@ -17,17 +17,8 @@ pipeline {
 		stage("Run Test"){
 			steps{
 				//sh
-				bat "docker compose up smoke-chrome"
+				bat "docker compose up login-quick-chrome"
 				bat "checkerrors.bat"
-			}
-		}
-		stage("Print Report to PDF"){
-			steps{				
-				//sh
-				bat "cd ../../"
-				bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
-				bat "cd workspace/QSUITEST_RUNNER"
-				bat "docker compose run printreport-output"
 			}
 		}
 	}
@@ -39,13 +30,27 @@ pipeline {
 						''', returnStdout: true).trim()
     }
 	post{
-		always{
+		always{			
 			script {
-					emailext attachmentsPattern: '../../jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive/output/smoke-chrome-result/html/out.pdf', 
+				if (currentBuild.currentResult != 'ABORTED') {
+					// Print Report to PDF
+					bat "cd ../../"
+					bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
+					bat "cd workspace/QSUITEST_RUNNER"
+					bat "docker compose run printreport-output"
+					// Send Email
+					emailext attachmentsPattern: '../../jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive/output/login-quick-chrome-result/html/out.pdf', 
 					body: 'Please see attached Test Results Report', 
-                    to: "${EMAIL_TO}", 
-                    subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
+					to: "${EMAIL_TO}", 
+					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
+				} else {
+					// Send Email without PDF Report
+					emailext body: 'Build Aborted.', 
+					to: "${EMAIL_TO}", 
+					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
+				}				
 			}
+			
 			archiveArtifacts artifacts: 'output/**'
 			bat "docker-compose down"
 			//sh "sudo rm -rf output/"
