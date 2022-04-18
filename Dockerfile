@@ -1,6 +1,5 @@
 FROM openjdk:8u212-jre-alpine3.9
 
-RUN apk add curl jq
 RUN apk update && apk add --no-cache wkhtmltopdf
 RUN apk --no-cache add msttcorefonts-installer fontconfig && \
     update-ms-fonts && \
@@ -11,6 +10,6 @@ WORKDIR /print
 
 # Add files
 ADD workspace/QSUITEST_RUNNER 			/print
-RUN dos2unix                            /print/printreport.sh
+RUN dos2unix                            /print/printreport
 
-ENTRYPOINT sh ./printreport.sh
+ENTRYPOINT sh ./printreport
