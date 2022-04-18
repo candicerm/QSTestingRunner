@@ -5,13 +5,11 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
     update-ms-fonts && \
     fc-cache -f
 
-ARG BUILD_NUMBER
-
 # Workspace
 WORKDIR /output/print
 
 # Add html files
-ADD output 	/output
+ADD workspace/QSUITEST_RUNNER/output 	/output
 
 # Add printreport
 ADD workspace/QSUITEST_RUNNER/printreport 								/output/print
