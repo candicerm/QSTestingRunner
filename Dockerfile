@@ -9,8 +9,7 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
 WORKDIR /print
 
 # Add files
-ADD workspace/QSUITEST_RUNNER/output 			    /print
-ADD workspace/QSUITEST_RUNNER/printreport 			/print
+ADD workspace/QSUITEST_RUNNER 			/print
 RUN dos2unix                                        /print/printreport
 
 ENTRYPOINT sh ./printreport
