@@ -6,9 +6,9 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
     fc-cache -f
 
 # Workspace
-WORKDIR /output
+WORKDIR /print
 
 # Add html files
-ADD workspace/QSUITEST_RUNNER 			/output
+ADD workspace/QSUITEST_RUNNER 			/print
 
 ENTRYPOINT sh ./printreport
