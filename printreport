@@ -5,7 +5,6 @@
 # and converts it into PDF (one.pdf) using wkhtmltopdf.
 
 echo $0
-echo Print Report to PDF
 ls -1d /output/*result* | while read dir; do
         dir=$dir/html/
         if [ -d $dir ]; then
