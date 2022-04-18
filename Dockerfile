@@ -14,6 +14,6 @@ WORKDIR /output/print
 ADD ././jobs/QSUITEST_RUNNER/builds/${BUILD_NUMBER}/archive/output 	/output
 
 # Add printreport
-ADD workspace/${JOB_NAME}/printreport 								/output/print
+ADD workspace/QSUITEST_RUNNER/printreport 								/output/print
 
 ENTRYPOINT sh ./printreport

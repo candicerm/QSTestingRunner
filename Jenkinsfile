@@ -39,7 +39,7 @@ pipeline {
 						bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
 					}
 					// Go back to current location
-					dir ("workspace\QSUITEST_RUNNER") {
+					dir ("workspace/QSUITEST_RUNNER") {
 						bat "docker compose run printreport-output"
 					}
 					// Send Email
