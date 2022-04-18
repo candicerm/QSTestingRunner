@@ -89,6 +89,4 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     volumes:
-      - ./:/output/print
-#      - ../../jobs/QSUITEST_RUNNER/builds/75/archive/output:/output
-      - ./output:/output
+      - ./:/output
