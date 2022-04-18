@@ -30,7 +30,9 @@ pipeline {
 						''', returnStdout: true).trim()
     }
 	post{
-		always{			
+		always{
+			archiveArtifacts artifacts: 'output/**'
+			
 			script {
 				if (currentBuild.currentResult != 'ABORTED') {
 					// Print Report to PDF
@@ -53,9 +55,7 @@ pipeline {
 					to: "${EMAIL_TO}", 
 					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				}				
-			}
-			
-			archiveArtifacts artifacts: 'output/**'
+			}			
 			bat "docker-compose down"
 			//sh "sudo rm -rf output/"
 			bat "rmdir /s/q output"
