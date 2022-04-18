@@ -41,8 +41,7 @@ pipeline {
 	post{
 		always{
 			script {
-					//emailext attachmentsPattern: '../../jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive/output/smoke-chrome-result/html/out.pdf', 
-					emailext attachmentsPattern: '../../jobs/${JOB_NAME}/builds/2/archive/output/smoke-chrome-result/html/out.pdf', 
+					emailext attachmentsPattern: '../../jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive/output/smoke-chrome-result/html/out.pdf', 
 					body: 'Please see attached Test Results Report', 
                     to: "${EMAIL_TO}", 
                     subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
