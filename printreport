@@ -4,8 +4,10 @@
 # Copies index.html *test*.html *groups*.html in each directory into one html (out.html) file
 # and converts it into PDF (one.pdf) using wkhtmltopdf.
 
-echo $0
-ls -1d /output/*result* | while read dir; do
+workdir=/print/output
+
+echo $0:  $workdir
+[ -d $workdir ] && ls -1d $workdir/*result* | while read dir; do
         dir=$dir/html/
         if [ -d $dir ]; then
                 echo -e "\nProcessing $dir"

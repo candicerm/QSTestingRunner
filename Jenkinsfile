@@ -49,7 +49,7 @@ pipeline {
 					emailext body: 'Build Aborted.', 
 					to: "${EMAIL_TO}", 
 					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
-				}	
+				}
 			}
 			archiveArtifacts artifacts: 'output/**'			
 			bat "docker-compose down"
