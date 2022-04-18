@@ -90,3 +90,4 @@ services:
     tty: true        # docker run -t
     volumes:
       - ./:/print
+      - ./output:/print/output
