@@ -34,10 +34,12 @@ pipeline {
 			script {
 				if (currentBuild.currentResult != 'ABORTED') {
 					// Print Report to PDF
+					// Go to where dockerfile is located
 					dir ("../../") {
 						bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
 					}
-					dir ("workspace/QSUITEST_RUNNER") {
+					// Go back to current location
+					dir ("workspace\QSUITEST_RUNNER") {
 						bat "docker compose run printreport-output"
 					}
 					// Send Email
