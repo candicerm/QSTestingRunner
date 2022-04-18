@@ -34,9 +34,9 @@ pipeline {
 			script {
 				if (currentBuild.currentResult != 'ABORTED') {
 					// Print Report to PDF
-					bat "cd ../../"
+					dir (../../)
 					bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile --build-arg BUILD_NUMBER=${BUILD_NUMBER} -t candicerm/printreport ."
-					bat "cd workspace/QSUITEST_RUNNER"
+					dir (workspace/QSUITEST_RUNNER)
 					bat "docker compose run printreport-output"
 					// Send Email
 					emailext attachmentsPattern: '../../jobs/${JOB_NAME}/builds/${BUILD_NUMBER}/archive/output/login-quick-chrome-result/html/out.pdf', 
