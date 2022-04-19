@@ -17,14 +17,14 @@ pipeline {
 		stage("Run Test"){
 			steps{
 				//sh
-				bat "docker compose up login-quick-chrome"
+				bat "docker compose up smoke-chrome"
 				bat "checkerrors.bat"
 			}
 		}
 	}
 	environment {
-        EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
-		//EMAIL_TO = 'candice@quickschools.com'
+        //EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
+		EMAIL_TO = 'candice@quickschools.com'
 		TIMESTAMP = bat(script: '''@echo off 
 						timestamp.bat
 						''', returnStdout: true).trim()
@@ -40,8 +40,8 @@ pipeline {
 					}
 					bat "docker compose run printreport-output"
 					// Send Email
-					emailext attachmentsPattern: 'output/login-quick-chrome-result/html/out.pdf', 
-					body: 'Please see attached Test Results Report\n@Candice\n<a href="https://quickschools.monday.com/users/4844336-candice">@Candice</a>', 
+					emailext attachmentsPattern: 'output/smoke-chrome-result/html/out.pdf', 
+					body: 'Please see attached Test Results Report', 
 					to: "${EMAIL_TO}", 
 					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				} else {
