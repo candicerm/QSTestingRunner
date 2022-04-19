@@ -13,7 +13,7 @@ echo $0:  $workdir
                 echo -e "\nProcessing $dir"
                 for htmlfile in index.html *test*.html *groups*.html; do
                         cat $dir/$htmlfile
-                        echo "<br><br><br><hr><br><br><br>"
+                        echo "<br><br><hr><br><br><br>"
                 done > $dir/out.html
                 ret=1
                 cnt=0
