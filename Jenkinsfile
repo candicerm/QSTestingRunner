@@ -17,7 +17,7 @@ pipeline {
 		stage("Run Test"){
 			steps{
 				//sh
-				bat "docker compose up smoke-chrome"
+				bat "docker compose up login-quick-chrome oms-chrome"
 				bat "checkerrors.bat"
 			}
 		}
@@ -34,13 +34,13 @@ pipeline {
 			script {
 				if (currentBuild.currentResult != 'ABORTED') {
 					// Print Report to PDF
-					// Go to where dockerfile is located
+					// Build in the parent directory
 					dir ("../../") {
 						bat "docker build -f workspace/QSUITEST_RUNNER/Dockerfile -t candicerm/printreport ."
 					}
 					bat "docker compose run printreport-output"
 					// Send Email
-					emailext attachmentsPattern: 'output/smoke-chrome-result/html/out.pdf', 
+					emailext attachmentsPattern: 'output/pdf/*', 
 					body: 'Please see attached Test Results Report', 
 					to: "${EMAIL_TO}", 
 					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"

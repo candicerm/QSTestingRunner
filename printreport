@@ -6,31 +6,34 @@
 
 workdir=/print/output
 
-echo $0:  $workdir
-[ -d $workdir ] && ls -1d $workdir/*result* | while read dir; do
-        dir=$dir/html/
-        if [ -d $dir ]; then
-                echo -e "\nProcessing $dir"
-                for htmlfile in index.html *test*.html *groups*.html; do
-                        cat $dir/$htmlfile
-                        echo "<br><br><hr><br><br><br>"
-                done > $dir/out.html
-                ret=1
-                cnt=0
-                while [ $ret != "0" ]; do
-                        let cnt++
-                        wkhtmltopdf $dir/out.html $dir/out.pdf
-                        ret=$?
-                        if [ $ret != "0" ]; then
-                                if [ $cnt -eq 5 ]; then
-                                        echo "GIVING UP."
-                                        break;
-                                fi
-                                echo "RETRYING... $cnt"
+echo $0
+
+if [ ! -d $workdir ]; then
+        echo "$workdir not found"
+        exit 1
+fi
+
+[ -d $workdir/pdf ] || mkdir $workdir/pdf
+
+cd $workdir
+ls -1d *result* | while read dir; do
+        echo -e "\nProcessing $workdir/$dir"
+        for htmlfile in index.html *test*.html *groups*.html; do
+                cat $dir/html/$htmlfile
+                echo "<br><br><hr><br><br><br>"
+        done > $dir/html/out.html
+        ret=1
+        cnt=0
+        while [ $ret != "0" ]; do
+                let cnt++
+                wkhtmltopdf $dir/html/out.html $workdir/pdf/$dir.pdf
+                ret=$?
+                if [ $ret != "0" ]; then
+                        if [ $cnt -eq 5 ]; then
+                                echo "GIVING UP."
+                                break;
                         fi
-                done
-        else
-                echo "$0:  __ERROR__"
-                echo "          $dir directory does not exist."
-        fi
+                        echo "RETRYING... $cnt"
+                fi
+        done
 done
