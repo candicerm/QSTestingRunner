@@ -41,7 +41,7 @@ pipeline {
 					bat "docker compose run printreport-output"
 					// Send Email
 					emailext attachmentsPattern: 'output/login-quick-chrome-result/html/out.pdf', 
-					body: 'Please see attached Test Results Report', 
+					body: 'Please see attached Test Results Report\n@Candice\n<a href="https://quickschools.monday.com/users/4844336-candice">@Candice</a>', 
 					to: "${EMAIL_TO}", 
 					subject: "QSTesting Build #${BUILD_NUMBER} $currentBuild.currentResult in Jenkins: SSC_${TIMESTAMP}"
 				} else {
