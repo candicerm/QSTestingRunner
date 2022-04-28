@@ -17,14 +17,15 @@ pipeline {
 		stage("Run Test"){
 			steps{
 				//sh
-				bat "docker compose up smoke-chrome login-quick-chrome oms-chrome"
+				//bat "docker compose up smoke-chrome login-quick-chrome oms-chrome"
+				bat "docker compose up smoke-chrome"
 				bat "checkerrors.bat"
 			}
 		}
 	}
 	environment {
-        EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
-		//EMAIL_TO = 'candice@quickschools.com'
+		//EMAIL_TO = 'quickschools_board_635908823_614f5cfb1a5327bcff0f__4844336@use1.mx.monday.com'
+		EMAIL_TO = 'candice@quickschools.com'
 		TIMESTAMP = bat(script: '''@echo off 
 						timestamp.bat
 						''', returnStdout: true).trim()
