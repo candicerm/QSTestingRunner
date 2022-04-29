@@ -18,9 +18,9 @@ fi
 cd $workdir
 ls -1d *result* | while read dir; do
         echo -e "\nProcessing $workdir/$dir"
-        for htmlfile in index.html *test*.html *groups*.html; do
-                cat $dir/html/$htmlfile
-                echo "<br><br><hr><br><br><br>"
+        for htmlfile in $dir/html/index.html $dir/html/*test*.html $dir/html/*groups*.html; do                
+				cat $htmlfile
+				echo "<br><br><hr><br><br><br>"
         done > $dir/html/out.html
         ret=1
         cnt=0
