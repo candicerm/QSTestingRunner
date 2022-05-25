@@ -83,6 +83,17 @@ services:
       - MODULE=src/test/resources/uitest/test-smoke.xml
     volumes:
       - ./output/smoke-chrome-result:/usr/share/qsuitest/test-output
+  regression-chrome:
+    image: candicerm/qsuitest
+    depends_on:
+      - chrome
+    environment:
+      - BROWSER=chrome_r
+      - DAILY_TEST=true
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/test-regression.xml
+    volumes:
+      - ./output/regression-chrome-result:/usr/share/qsuitest/test-output
   printreport-output:
     image: candicerm/printreport
     container_name: printreport
