@@ -72,6 +72,18 @@ services:
       - MODULE=src/test/resources/uitest/oms.xml
     volumes:
       - ./output/oms-chrome-result:/usr/share/qsuitest/test-output
+  oms-daily-chrome:
+    image: candicerm/qsuitest
+    depends_on:
+      - chrome
+    environment:
+      - SCHOOL_CODE=masterscheduler
+      - BROWSER=chrome_r
+      - DAILY_TEST=false
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/oms-daily.xml
+    volumes:
+      - ./output/oms-daily-chrome-result:/usr/share/qsuitest/test-output
   smoke-chrome:
     image: candicerm/qsuitest
     depends_on:
