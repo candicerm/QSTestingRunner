@@ -49,7 +49,19 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/test-single.xml
     volumes:
-      - ./output/single-firefox-result:/usr/share/qsuitest/test-output
+      - ./output/single-chrome-result:/usr/share/qsuitest/test-output
+  parallel-chrome:
+    image: candicerm/qsuitest
+    depends_on:
+      - chrome
+    environment:
+      - SCHOOL_CODE=seleniumtestschool
+      - BROWSER=chrome_r
+      - DAILY_TEST=false
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/test-parallel.xml
+    volumes:
+      - ./output/single-parallel-result:/usr/share/qsuitest/test-output      
   sis-chrome:
     image: candicerm/qsuitest
     depends_on:
