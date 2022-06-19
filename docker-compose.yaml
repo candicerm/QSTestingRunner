@@ -61,7 +61,7 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/test-parallel.xml
     volumes:
-      - ./output/single-parallel-result:/usr/share/qsuitest/test-output      
+      - ./output/parallel-chrome-result:/usr/share/qsuitest/test-output
   sis-chrome:
     image: candicerm/qsuitest
     depends_on:
