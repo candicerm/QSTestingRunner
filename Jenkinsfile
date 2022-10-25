@@ -18,7 +18,7 @@ pipeline {
 			steps{
 				//sh
 				//bat "docker compose up smoke-chrome login-quick-chrome oms-chrome"
-				bat "docker compose up regression-chrome"
+				bat "docker compose up guitest-chrome"
 				bat "checkerrors.bat"
 			}
 		}

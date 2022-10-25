@@ -118,7 +118,7 @@ services:
       - HUB_HOST=hub
       - MODULE=src/test/resources/uitest/test-ui.xml
     volumes:
-      - ./output/regression-chrome-result:/usr/share/qsuitest/test-output
+      - ./output/guitest-chrome-result:/usr/share/qsuitest/test-output
   printreport-output:
     image: candicerm/printreport
     container_name: printreport
