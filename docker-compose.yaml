@@ -108,7 +108,7 @@ services:
       - MODULE=src/test/resources/uitest/test-smoke.xml
     volumes:
       - ./output/smoke-chrome-result:/usr/share/qsuitest/test-output
-  regression-chrome:
+  guitest-chrome:
     image: candicerm/qsuitest
     depends_on:
       - chrome
