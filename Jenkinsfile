@@ -19,7 +19,7 @@ pipeline {
 				//sh
 				//bat "docker compose up smoke-chrome login-quick-chrome oms-chrome"
 				//bat "docker compose up guitest-chrome emailtest-chrome"
-				bat "docker compose up guitest-chrome
+				bat "docker compose up guitest-chrome"
 				bat "checkerrors.bat"
 			}
 		}
