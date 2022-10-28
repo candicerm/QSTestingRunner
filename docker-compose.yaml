@@ -119,6 +119,17 @@ services:
       - MODULE=src/test/resources/uitest/test-ui.xml
     volumes:
       - ./output/guitest-chrome-result:/usr/share/qsuitest/test-output
+  emailtest-chrome:
+    image: candicerm/qsuitest
+    depends_on:
+      - chrome
+    environment:
+      - BROWSER=chrome_r
+      - DAILY_TEST=true
+      - HUB_HOST=hub
+      - MODULE=src/test/resources/uitest/test-email.xml
+    volumes:
+      - ./output/guitest-chrome-result:/usr/share/qsuitest/test-output
   printreport-output:
     image: candicerm/printreport
     container_name: printreport
